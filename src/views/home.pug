@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        style
+            include style.css
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Zoom
+        link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+    body
+        header 
+            h1 Video Conferencing
+        main
+            div#welcome
+                form
+                    input(id ="roomname" type="text", placeholder = "Enter room name", required autofocus)
+                    input(id="name" type="text", placeholder="Enter your name", required)
+                    button Enter room
+                h3 Open Rooms
+                ul
+            div#room
+                h3#roomName
+                video#myFace(autoplay, playsinline, width="400", height="400")
+                video#peer(autoplay, playsinline, width="400", height="400")
+                div#control_buttons
+                button#mute Mute
+                button#camera Turn camera off
+                div#media
+                    p Change Camera
+                    select#cameras Select Camera
+                div#message_box
+                    p Share file
+                    input(id="file_upload" type="file", placeholder="Share a file")
+                ul
+                form#message
+                    input(type="text", placeholder="Send a text message", required)
+                    button#send_message send
+        script(src="/socket.io/socket.io.js")
+        script(src="/public/js/app.js")

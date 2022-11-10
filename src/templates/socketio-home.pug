@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Zoom
+        link(rel="stylesheet", href="https://unpkg.com/mvp.css@1.12/mvp.css")
+    body
+        header 
+            h1 Zoom Clone
+        main
+            div#welcome
+                form
+                    input(id ="roomname" type="text", placeholder = "Enter room name", required autofocus)
+                    input(id="name" type="text", placeholder="Enter your name", required)
+                    button Enter room
+                h3 Open Rooms
+                ul
+            div#room
+                h3#roomName
+                video#myFace(autoplay, playsinline, width="400", height="400")
+                button#mute Mute
+                button#camera Turn camera off
+                select#cameras Select Camera
+                ul
+                form#message
+                    input(type="text", placeholder="message", required)
+                    button send
+        script(src="/socket.io/socket.io.js")
+        script(src="/public/js/app.js")
+       
