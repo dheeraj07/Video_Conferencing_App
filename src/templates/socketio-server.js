@@ -1,7 +1,7 @@
 import { Console } from "console";
 import express from "express";
 import http from "http";
-import SocketIo from "socket.io"
+import SocketIo from "socket.io";
 import WebSocket from "ws";
 const { instrument } = require("@socket.io/admin-ui");
 const { createServer } = require("http");
@@ -10,7 +10,6 @@ const { Server } = require("socket.io");
 const app = require("express")();
 const httpServer = createServer(app);
 
-//const sio = require("socket.io")(httpServer, {});
 const sio = new Server(httpServer, 
 {
   cors: 
@@ -28,7 +27,7 @@ instrument(sio,
 httpServer.listen(3000);
 
 app.set('view engine', "pug");
-app.set('views', __dirname+"/views")
+app.set('views', __dirname+"/views");
 app.use("/public", express.static(__dirname + '/public'));
 app.get("/", (req, res) => res.render("home"));
 app.get("/*",(req, res) => res.redirect("/"));
@@ -56,7 +55,7 @@ function publicRoom()
 
 function countPeopleInRoom(room)
 {
-    return sio.sockets.adapter.rooms.get(room).size
+    return sio.sockets.adapter.rooms.get(room).size;
 }
 
 sio.on("connection", (socket) => 
@@ -72,7 +71,7 @@ sio.on("connection", (socket) =>
     })
     socket.on("room", (roomName, funcb) => 
     {
-        socket.join(roomName)
+        socket.join(roomName);
         funcb();
         socket.to(roomName).emit("welcome", socket.name);
         sio.sockets.emit("room_change", publicRoom());

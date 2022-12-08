@@ -4,9 +4,9 @@ const welcomeForm = document.getElementById("welcome");
 const messageForm = document.getElementById("message");
 const roomForm = document.getElementById("room");
 
-const video = document.getElementById("myFace")
-const muteBtn = document.getElementById("mute")
-const videoBtn = document.getElementById("camera")
+const video = document.getElementById("myFace");
+const muteBtn = document.getElementById("mute");
+const videoBtn = document.getElementById("camera");
 const camerasEle = document.getElementById("cameras");
 
 let camStatus = false;
@@ -26,7 +26,8 @@ async function getCameras()
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter(device => device.kind === "videoinput");
         const currentCamera = mySteam.getVideoTracks()[0];
-        cameras.forEach(camera => {
+        cameras.forEach(camera => 
+        {
             const option = document.createElement("option");
             option.value = camera.deviceId;
             option.innerText = camera.label;
@@ -42,17 +43,20 @@ async function getCameras()
     }
 }
 
-camerasEle.addEventListener("input", (inp)=>{
-    getMedia(inp.value)
+camerasEle.addEventListener("input", (inp)=>
+{
+    getMedia(inp.value);
 })
 
 async function getMedia(deviceId)
 {
-    const initialConstraints = {
+    const initialConstraints = 
+    {
         audio: true,
         video: {facingMode: "user"} 
     }
-    const cameraConstr = {
+    const cameraConstr = 
+    {
         audio: true,
         video: {deviceId: {exact: deviceId}}
     }
@@ -71,8 +75,9 @@ async function getMedia(deviceId)
 }
 
 
-muteBtn.addEventListener("click", ()=>{
-    mySteam.getAudioTracks().forEach( track => track.enabled = !track.enabled)
+muteBtn.addEventListener("click", ()=>
+{
+    mySteam.getAudioTracks().forEach( track => track.enabled = !track.enabled);
     if(!audioStatus)
     {
         muteBtn.innerText = "Unmute";
@@ -85,8 +90,9 @@ muteBtn.addEventListener("click", ()=>{
 });
 
 
-videoBtn.addEventListener("click", ()=>{
-    mySteam.getVideoTracks().forEach( track => track.enabled = !track.enabled)
+videoBtn.addEventListener("click", ()=>
+{
+    mySteam.getVideoTracks().forEach( track => track.enabled = !track.enabled);
     if(!mute)
     {
         videoBtn.innerText = "Turn On Camera";
@@ -95,7 +101,7 @@ videoBtn.addEventListener("click", ()=>{
     {
         videoBtn.innerText = "Turn Off Camera";
     }
-    camStatus = !camStatus
+    camStatus = !camStatus;
 });
 
 function addMessage(message)
@@ -106,7 +112,8 @@ function addMessage(message)
      welcomeMsg.appendChild(li);
 }
 
-welcomeForm.addEventListener("submit", (event) => {
+welcomeForm.addEventListener("submit", (event) => 
+{
     event.preventDefault();
     const roomN = welcomeForm.querySelector("#roomname");
     const name = welcomeForm.querySelector("#name");
@@ -123,33 +130,33 @@ welcomeForm.addEventListener("submit", (event) => {
         {
             event.preventDefault();
             const input = messageForm.querySelector("input");
-            socket.emit("sendMessage", input.value, roomName, () => {
+            socket.emit("sendMessage", input.value, roomName, () => 
+            {
                 addMessage(`You: ${input.value}`);
             })
         });
-       /* nameForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const input = nameForm.querySelector("input");
-            socket.emit("name", input.value, roomName);
-        }*/
     });
-    roomN.value = ""
-    name.value = ""
+    roomN.value = "";
+    name.value = "";
 });
 
-socket.on("welcome", (name) => {
+socket.on("welcome", (name) => 
+{
      addMessage(name+" joined the chat room");
 });
 
-socket.on("bye", (name)=>{
+socket.on("bye", (name)=>
+{
     addMessage(name+" left the chat room!");
 })
 
-socket.on("new_message", (msg) => {
+socket.on("new_message", (msg) => 
+{
     addMessage(msg);
 });
 
-socket.on("room_change", (rooms) => {
+socket.on("room_change", (rooms) => 
+{
     const ul = welcomeForm.querySelector("ul");
     ul.innerHTML = "";
     for(let value of rooms.values())

@@ -23,7 +23,7 @@ instrument(sio,
 httpServer.listen(3000);
 
 app.set('view engine', "pug");
-app.set('views', __dirname+"/views")
+app.set('views', __dirname+"/views");
 app.use("/public", express.static(__dirname + '/public'));
 app.get("/", (req, res) => res.render("home"));
 app.get("/*",(req, res) => res.redirect("/"));
@@ -35,7 +35,8 @@ function publicRoom()
     const publicRooms = [];
     if(rooms != undefined)
     {
-        rooms.forEach((value, key) => {
+        rooms.forEach((value, key) => 
+        {
             let obj = {};
             if(sids.get(key) === undefined)
             {
@@ -64,11 +65,11 @@ sio.on("connection", (socket) =>
     socket.on("name", (name) =>
     {
         socket["name"] = name;
-    })
-    socket.on("room", (roomName, funcb) => 
+    });
+    socket.on("room", (roomName, functionCall) => 
     {
-        socket.join(roomName)
-        funcb();
+        socket.join(roomName);
+        functionCall();
         socket.to(roomName).emit("welcome", socket.name);
         sio.sockets.emit("room_change", publicRoom());
     });
@@ -82,13 +83,13 @@ sio.on("connection", (socket) =>
         sio.sockets.emit("room_change", publicRoom());
     });
 
-    socket.on("sendMessage", (msg, roomName, funcb) =>
+    socket.on("sendMessage", (msg, roomName, functionCall) =>
     {
         socket.to(roomName).emit("new_message", `${socket.name}: ${msg}`);
-        funcb();
+        functionCall();
     });
 
-    socket.on("offer", (offer, roomName)=>
+    socket.on("offer", (offer, roomName) =>
     {
         console.log("offer received");
         socket.to(roomName).emit("offer", offer);

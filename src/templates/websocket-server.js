@@ -5,7 +5,7 @@ wss.on("connection", (socket) =>
 {
     socket["nickName"] = "Anonymous";
     connections.push(socket);
-    console.log("Connected with Browser")
+    console.log("Connected with Browser");
 
     socket.addEventListener("close", ()  =>
     {

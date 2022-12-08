@@ -8,7 +8,7 @@ const messageList = {}
 messageForm.addEventListener("submit", (event) =>
 {
     event.preventDefault();
-    const input = messageForm.querySelector("input")
+    const input = messageForm.querySelector("input");
     socket.send(makeMessage("message", input.value));
     input.value = "";
 })
@@ -22,11 +22,13 @@ nameForm.addEventListener("submit",(event)=>
 
 })
 
-socket.addEventListener("open",()=>{
+socket.addEventListener("open",()=>
+{
     console.log("Connected to server!!");
 });
 
-socket.addEventListener("message",(message)=>{
+socket.addEventListener("message",(message)=>
+{
     console.log("Rceeived message: "+message.data);
     const liElement = document.createElement("li");
     liElement.innerText = message.data;
@@ -35,7 +37,7 @@ socket.addEventListener("message",(message)=>{
 
 socket.addEventListener("close",()=>
 {
-    console.log("Disconnected from server!!")
+    console.log("Disconnected from server!!");
 })
 
 function makeMessage(type, payload)

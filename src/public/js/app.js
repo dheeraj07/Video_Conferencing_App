@@ -71,7 +71,7 @@ function makeConnection()
 
 function handleAddStream(data)
 {
-    console.log("Rceeived a stream from peer")
+    console.log("Received a stream from peer")
     const peersStream = document.getElementById("peer");
     peersStream.srcObject = data.stream
     console.log("Peer's stream:   ",data)
@@ -87,11 +87,13 @@ function handleIceCandidateProcess(data)
 
 async function getMedia(deviceId)
 {
-    const initialConstraints = {
+    const initialConstraints = 
+    {
         audio: true,
         video: {facingMode: "user"} 
     }
-    const cameraConstr = {
+    const cameraConstr = 
+    {
         audio: true,
         video: {deviceId: {exact: deviceId}}
     }
@@ -119,10 +121,8 @@ function addMessage(message)
 
 function shareFileWithPeer()
 {
-    console.log("called function:  ",fileUploaded);
     if(fileUploaded)
     {
-        console.log("came inside")
         const fileName = fileUploaded.name;
         dataChannel = peerConn.createDataChannel(fileName);
         dataChannel.binaryType = 'arraybuffer';
@@ -242,7 +242,7 @@ socket.on("welcome", async (name) =>
     if(dataChannel)
     {
         dataChannel.addEventListener("message", (event) => {
-            console.log("message evenet called in welcome")
+            console.log("message event called in welcome")
             const { data } = event;
             console.log(data)
             try {
